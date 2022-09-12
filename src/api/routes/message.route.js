@@ -1,0 +1,28 @@
+const express = require('express')
+const controller = require('../controllers/message.controller')
+const keyVerify = require('../middlewares/keyCheck')
+const loginVerify = require('../middlewares/loginCheck')
+const multer = require('multer')
+
+const router = express.Router()
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage, inMemory: true }).single('file')
+
+router.route('/text').post(keyVerify, loginVerify, controller.Text)
+router.route('/image').post(keyVerify, loginVerify, upload, controller.Image)
+router.route('/video').post(keyVerify, loginVerify, upload, controller.Video)
+router.route('/audio').post(keyVerify, loginVerify, upload, controller.Audio)
+router.route('/doc').post(keyVerify, loginVerify, upload, controller.Document)
+router.route('/link').post(keyVerify, loginVerify, upload, controller.Link)
+router.route('/mediaurl').post(keyVerify, loginVerify, controller.Mediaurl)
+router.route('/simplebutton').post(keyVerify, loginVerify, controller.SimpleButton)
+router.route('/templatebutton').post(keyVerify, loginVerify, controller.TemplateButton)
+router.route('/contact').post(keyVerify, loginVerify, controller.Contact)
+router.route('/list').post(keyVerify, loginVerify, controller.List)
+router.route('/location').post(keyVerify, loginVerify, controller.Location)
+router.route('/reaction').post(keyVerify, loginVerify, controller.Reaction)
+router.route('/setstatus').put(keyVerify, loginVerify, controller.SetStatus)
+router.route('/mediabutton').post(keyVerify, loginVerify, controller.MediaButton)
+router.route('/pix').post(keyVerify, loginVerify, controller.Pix)
+
+module.exports = router
